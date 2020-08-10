@@ -1,0 +1,41 @@
+[package]
+name = "rust-html-xml-comparison"
+version = "0.1.0"
+authors = ["Alex Kreidler <alexkreidler2020@gmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[dependencies]
+anyhow = "1.0.32"
+env_logger = "0.7.1"
+log = "0.4.11"
+quick-xml = "0.18.1"
+xml-rs = "0.8.3"
+xmltree = "0.10.1"
+xmlparser = "0.13.2"
+roxmltree = "0.1.0"
+minidom = "0.12.0"
+
+[[example]]
+name = "quick-xml"
+path = "examples/low-level/quick-xml.rs"
+
+[[example]]
+name = "xml-rs"
+path = "examples/low-level/xml-rs.rs"
+
+[[example]]
+name = "xmlparser"
+path = "examples/low-level/xmlparser.rs"
+
+[[example]]
+name = "roxmltree"
+path = "examples/high-level/roxmltree.rs"
+
+[[example]]
+name = "xmltree"
+path = "examples/high-level/xmltree.rs"
+
+[[example]]
+name = "minidom"
+path = "examples/high-level/minidom.rs"
