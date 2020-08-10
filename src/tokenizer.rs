@@ -80,8 +80,10 @@ impl ComparisonTokenizer for XmlRs {
     }
 }
 
-pub fn get_tokenizers() -> Vec<Box<dyn ComparisonTokenizer>> {
-    let t: Vec<Box<dyn ComparisonTokenizer>> = vec![
+pub type Tokenizers = Vec<Box<dyn ComparisonTokenizer>>;
+
+pub fn get_tokenizers() -> Tokenizers {
+    let t: Tokenizers = vec![
         Box::new(XmlRs {}),
         Box::new(XMLParser {}),
         Box::new(QuickXML {}),

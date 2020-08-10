@@ -8,5 +8,7 @@ pub trait ComparisonTokenizer {
 pub mod data;
 pub mod tokenizer;
 
+pub mod matrix;
+
 #[cfg(test)]
 pub mod tokenizer_test;

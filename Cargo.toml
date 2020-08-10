@@ -4,6 +4,9 @@ version = "0.1.0"
 authors = ["Alex Kreidler <alexkreidler2020@gmail.com>"]
 edition = "2018"
 
+[lib]
+name = "hxcmp"
+
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [dependencies]
 anyhow = "1.0.32"
