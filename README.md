@@ -6,11 +6,11 @@ There are a ton of XML parsers and fewer HTML ones. This is my attempt at compar
 
 ## XML libs
 
-- [xmltree](https://github.com/eminence/xmltree-rs)
 - [xml-rs](https://github.com/netvl/xml-rs)
-- [roxmltree](https://github.com/RazrFalcon/roxmltree)
 - [xmlparser](https://github.com/RazrFalcon/xmlparser)
 - [quick-xml](https://github.com/tafia/quick-xml)
+- [xmltree](https://github.com/eminence/xmltree-rs)
+- [roxmltree](https://github.com/RazrFalcon/roxmltree)
 - [minidom](https://docs.rs/minidom/0.12.0/minidom/) (Source [here](https://gitlab.com/xmpp-rs/xmpp-rs))
 
 There are a few relationships between this libs.

@@ -1,6 +1,7 @@
 use anyhow::Result;
 
 use crate::ComparisonTokenizer;
+use log::debug;
 pub struct XMLParser {}
 impl ComparisonTokenizer for XMLParser {
     fn parse_tokens_str<'a>(&self, input: &'a str) -> Result<()> {
@@ -10,7 +11,7 @@ impl ComparisonTokenizer for XMLParser {
             let _token = out?;
             count += 1;
         }
-        println!("total xmlparser events {}", count);
+        debug!("total xmlparser events {}", count);
         Ok(())
     }
     fn name(&self) -> String {
@@ -49,7 +50,7 @@ impl ComparisonTokenizer for QuickXML {
             // if we don't keep a borrow elsewhere, we can clear the buffer to keep memory usage low
             buf.clear();
         }
-        println!("total quick-xml events {}", count);
+        debug!("total quick-xml events {}", count);
         Ok(())
     }
 
@@ -70,7 +71,7 @@ impl ComparisonTokenizer for XmlRs {
             let _token = e?;
             count += 1;
         }
-        println!("total xml-rs events {}", count);
+        debug!("total xml-rs events {}", count);
         Ok(())
     }
 
@@ -81,9 +82,9 @@ impl ComparisonTokenizer for XmlRs {
 
 pub fn get_tokenizers() -> Vec<Box<dyn ComparisonTokenizer>> {
     let t: Vec<Box<dyn ComparisonTokenizer>> = vec![
+        Box::new(XmlRs {}),
         Box::new(XMLParser {}),
         Box::new(QuickXML {}),
-        Box::new(XmlRs {}),
     ];
     t
 }

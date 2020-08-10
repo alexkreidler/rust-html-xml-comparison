@@ -160,9 +160,19 @@ dependencies = [
  "minidom",
  "quick-xml 0.18.1",
  "roxmltree",
+ "tabwriter",
  "xml-rs",
  "xmlparser 0.13.2",
  "xmltree",
+]
+
+[[package]]
+name = "tabwriter"
+version = "1.2.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "36205cfc997faadcc4b0b87aaef3fbedafe20d38d4959a7ca6ff803564051111"
+dependencies = [
+ "unicode-width",
 ]
 
 [[package]]
@@ -182,6 +192,12 @@ checksum = "d40c6d1b69745a6ec6fb1ca717914848da4b44ae29d9b3080cbee91d72a69b14"
 dependencies = [
  "lazy_static",
 ]
+
+[[package]]
+name = "unicode-width"
+version = "0.1.8"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9337591893a19b88d8d87f2cec1e73fad5cdfd10e5a6f349f498ad6ea2ffb1e3"
 
 [[package]]
 name = "winapi"

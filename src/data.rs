@@ -7,7 +7,7 @@ pub const basic: &'static str = r#"<tag1 att1 = "test">
 </tag1>"#;
 
 pub const basic2: &'static str = r##"
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <names>
     <name first="bob" last="jones" />
     <name first="elizabeth" last="smith" />
@@ -26,6 +26,11 @@ pub const invalid: &'static str = r#"
 
 /// More invalid, unclosed, autofixed
 pub const invalid2: &'static str = r#"
+<unclosed>
+<h1>Test</h1>
+"#;
+
+pub const invalid3: &'static str = r#"
 <unclosed>
 <h1>Test</h2>
 "#;
