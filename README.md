@@ -17,6 +17,8 @@ There are a few relationships between this libs.
 
 `xml-rs`, `xmlparser`, and `quick-xml` are low-level, [pull-based](https://stackoverflow.com/questions/15895124/what-is-push-approach-and-pull-approach-to-parsing) streaming XML tokenizers. The first two implement Iterator while the latter doesn't.
 
+Both `quick-xml` and `xml-rs` can take input from `BufRead` and `Read`, respectively. Unfortunately, `xmlparser` only takes input from `str`s. Theoretically, it's `Stream` could be implemented to allow for real streaming from those traits, but it isn't for now.
+
 `xml-rs` returns owned values of everything for all tokens. `xmlparser` returns tokens that use references to spans of strings. `quick-xml` uses a custom method to read new events, and pushes event data onto a user-provided buffer, and returns a CoW as the event.
 
 `xmltree` and `roxmltree` are higher-level libaries that ouput an entire XML tree representation into memory.
@@ -30,6 +32,20 @@ I'll refer you to a performance comparison from the `roxmltree` author here: htt
 In the examples folder, we basically copied the "getting started" example from each library.
 
 In the source of the project, we implemented tests and benchmarks of each of the libraries.
+
+## Current Results
+
+As of 8/10/2020, these are the results for the "low-level" XML parsers:
+
+```
+Test Name          xml-rs           xml-parser        quick-xml
+basic              SUCCEEDED        SUCCEEDED         SUCCEEDED
+basic2             SUCCEEDED        FAILED            SUCCEEDED
+invalid            FAILED           FAILED            FAILED
+invalid2           FAILED           SUCCEEDED         SUCCEEDED
+invalid3           FAILED           SUCCEEDED         FAILED
+self_closed        SUCCEEDED        SUCCEEDED         SUCCEEDED
+```
 
 ## Design choices
 
