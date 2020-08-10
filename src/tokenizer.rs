@@ -34,7 +34,7 @@ impl ComparisonTokenizer for XMLParser {
         debug!("total xmlparser events {}", count);
         Ok(())
     }
-    fn parse_tokens_reader(&self, input: &mut dyn std::io::BufRead) -> Result<()> {
+    fn parse_tokens_reader<'a>(&self, input: &'a mut dyn std::io::BufRead) -> Result<()> {
         let mut mem = String::new();
         input.read_to_string(&mut mem)?;
         let tk = xmlparser::Tokenizer::from(mem.as_str());
@@ -115,7 +115,7 @@ impl ComparisonTokenizer for QuickXML {
         debug!("total quick-xml events {}", count);
         Ok(())
     }
-    fn parse_tokens_reader(&self, input: &mut dyn std::io::BufRead) -> Result<()> {
+    fn parse_tokens_reader<'a>(&self, input: &'a mut dyn std::io::BufRead) -> Result<()> {
         let mut reader = Reader::from_reader(input);
         reader.trim_text(true);
 
@@ -175,7 +175,7 @@ impl ComparisonTokenizer for XmlRs {
         debug!("total xml-rs events {}", count);
         Ok(())
     }
-    fn parse_tokens_reader(&self, input: &mut dyn std::io::BufRead) -> Result<()> {
+    fn parse_tokens_reader<'a>(&self, input: &'a mut dyn std::io::BufRead) -> Result<()> {
         let parser = EventReader::new(input);
         let mut count = 0;
         for e in parser {

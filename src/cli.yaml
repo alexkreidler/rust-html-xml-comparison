@@ -1,0 +1,24 @@
+name: parsoid
+version: "1.0"
+about: Allows you to compare various Rust XML and HTML parsers
+args:
+  - verbose:
+      short: v
+      multiple: true
+      about: Sets the level of verbosity
+subcommands:
+  - builtin:
+      about: runs the builtin matrix of tests
+  - test:
+      about: Tests from the file(s) provided
+      args:
+        - input-list:
+            short: i
+            value_name: INPUT
+            # optional: true
+            about: A file containing a list of filenames to load from. Will override passed files if set
+        - FILE:
+            about: A file or list of files to load from
+            # required: true
+            index: 1
+            multiple: true

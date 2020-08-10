@@ -24,6 +24,7 @@ markup5ever_rcdom = "0.1.0"
 markup5ever = "0.10.0"
 xml5ever = "0.16.1"
 html_parser = "0.4.2"
+clap = { version = "3.0.0-beta.1", features = ["yaml"] }
 
 [[example]]
 name = "quick-xml"
