@@ -4,10 +4,10 @@ use std::io::{self, Write};
 use html5ever::driver::ParseOpts;
 use html5ever::tendril::TendrilSink;
 use html5ever::tree_builder::TreeBuilderOpts;
-use html5ever::{parse_document, serialize};
-use markup5ever_rcdom::{Handle, NodeData, RcDom, SerializableHandle};
+use html5ever::{parse_document};
+use markup5ever_rcdom::{Handle, NodeData, RcDom};
 
-use markup5ever::{local_name, namespace_prefix, namespace_url, ns};
+use markup5ever::{namespace_url, ns};
 use std::iter::repeat;
 // use std::str::escape_default;
 // fn escape_default(s: &str) -> String {

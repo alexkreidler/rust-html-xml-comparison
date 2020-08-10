@@ -15,12 +15,13 @@ fn init() {
 fn do_test(name: &'static str, data: &'static str) -> Result<()> {
     init();
     info!("Running test {}", name);
-    let tk = crate::tokenizer::get_tokenizers();
+    let tk = crate::parser::get_parsers();
     let mut latest_err: Option<anyhow::Error> = None;
     for tkz in tk {
         let name = tkz.name();
         debug!("Using tokenizer {}", name);
         // TODO: fail fast here by propagating result up, or just skip input
+        // TODO: handle panics here
         let out = tkz.parse_tokens_str(data);
         match out {
             Err(e) => {

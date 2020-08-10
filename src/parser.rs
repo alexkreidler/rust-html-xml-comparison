@@ -1,9 +1,9 @@
 use anyhow::Result;
 
-use crate::ComparisonTokenizer;
+use crate::Parser;
 use log::debug;
 pub struct XMLParser {}
-impl ComparisonTokenizer for XMLParser {
+impl Parser for XMLParser {
     fn parse_tokens_str<'a>(&self, input: &'a str) -> Result<()> {
         // After testing, there's no difference in out examples between `from` and `from_fragment`
         let tk = xmlparser::Tokenizer::from_fragment(
@@ -52,7 +52,7 @@ pub struct QuickXML {}
 use quick_xml::events::Event;
 use quick_xml::Reader;
 
-impl ComparisonTokenizer for QuickXML {
+impl Parser for QuickXML {
     fn parse_tokens_str<'a>(&self, input: &'a str) -> Result<()> {
         let mut reader = Reader::from_str(input);
         reader.trim_text(true);
@@ -150,7 +150,7 @@ pub struct XmlRs {}
 
 use xml::reader::EventReader;
 
-impl ComparisonTokenizer for XmlRs {
+impl Parser for XmlRs {
     fn parse_tokens_str<'a>(&self, input: &'a str) -> Result<()> {
         let parser = EventReader::new(input.as_bytes());
         let mut count = 0;
@@ -187,13 +187,121 @@ impl ComparisonTokenizer for XmlRs {
     }
 }
 
-pub type Tokenizers = Vec<Box<dyn ComparisonTokenizer>>;
+pub struct Html5Ever {}
 
-pub fn get_tokenizers() -> Tokenizers {
-    let t: Tokenizers = vec![
+use html5ever::driver::ParseOpts;
+use html5ever::parse_document;
+use html5ever::tendril::TendrilSink;
+use html5ever::tree_builder::TreeBuilderOpts;
+use markup5ever_rcdom::RcDom;
+
+impl Parser for Html5Ever {
+    fn name(&self) -> String {
+        "html5ever".to_string()
+    }
+    fn parse_tokens_str<'a>(&self, input: &'a str) -> Result<()> {
+        let opts = ParseOpts {
+            tree_builder: TreeBuilderOpts {
+                drop_doctype: true,
+                ..Default::default()
+            },
+            ..Default::default()
+        };
+
+        let mut inp = input.as_bytes();
+
+        let _dom = parse_document(RcDom::default(), opts)
+            .from_utf8()
+            .read_from(&mut inp)?;
+
+        Ok(())
+    }
+    fn parse_tokens_string(&self, input: String) -> Result<()> {
+        let opts = ParseOpts {
+            tree_builder: TreeBuilderOpts {
+                drop_doctype: true,
+                ..Default::default()
+            },
+            ..Default::default()
+        };
+
+        let mut inp = input.as_bytes();
+
+        let _dom = parse_document(RcDom::default(), opts)
+            .from_utf8()
+            .read_from(&mut inp)?;
+
+        Ok(())
+    }
+    fn parse_tokens_reader<'a>(&self, input: &'a mut dyn std::io::BufRead) -> Result<()> {
+        let opts = ParseOpts {
+            tree_builder: TreeBuilderOpts {
+                drop_doctype: true,
+                ..Default::default()
+            },
+            ..Default::default()
+        };
+
+        // let mut inp = input;
+        let _dom = parse_document(RcDom::default(), opts)
+            .from_utf8()
+            .read_from(Box::new(input).as_mut())?;
+
+        Ok(())
+    }
+}
+
+pub struct HtmlParser {}
+use html_parser::Dom;
+
+// TODO: wrap all tests in panic catch_unwind at the call site, rather than just on this code
+impl Parser for HtmlParser {
+    fn name(&self) -> String {
+        "html-parser".to_string()
+    }
+    fn parse_tokens_str<'a>(&self, input: &'a str) -> Result<()> {
+        let result = std::panic::catch_unwind(|| Dom::parse(input));
+        match result {
+            Err(_) => Err(anyhow::anyhow!("unexpected panic from parser")),
+            Ok(r) => {
+                r?;
+                Ok(())
+            }
+        }
+    }
+    fn parse_tokens_string(&self, input: String) -> Result<()> {
+        let result = std::panic::catch_unwind(|| Dom::parse(input.as_str()));
+        match result {
+            Err(_) => Err(anyhow::anyhow!("unexpected panic from parser")),
+            Ok(r) => {
+                r?;
+                Ok(())
+            }
+        }
+    }
+    fn parse_tokens_reader<'a>(&self, input: &'a mut dyn std::io::BufRead) -> Result<()> {
+        let mut intermediate = String::new();
+        input.read_to_string(&mut intermediate)?;
+        let result = std::panic::catch_unwind(|| Dom::parse(intermediate.as_str()));
+        match result {
+            Err(_) => Err(anyhow::anyhow!("unexpected panic from parser")),
+            Ok(r) => {
+                r?;
+                Ok(())
+            }
+        }
+    }
+}
+
+pub type Parsers = Vec<Box<dyn Parser>>;
+
+pub fn get_parsers() -> Parsers {
+    let t: Parsers = vec![
         Box::new(XmlRs {}),
         Box::new(XMLParser {}),
         Box::new(QuickXML {}),
+        Box::new(Html5Ever {}),
+        Box::new(HtmlParser {}),
     ];
     t
 }

@@ -7,7 +7,7 @@ use log::error;
 // use std::borrow::BorrowMut;
 // use std::ops::Deref;
 
-fn do_test(test: &Test, tkz: &Box<dyn crate::ComparisonTokenizer>) -> Result<String> {
+fn do_test(test: &Test, tkz: &Box<dyn crate::Parser>) -> Result<String> {
     let out = match &test.input {
         Input::Static(s) => tkz.parse_tokens_str(s),
         Input::AString(s) => tkz.parse_tokens_string(s.clone()),
@@ -31,7 +31,7 @@ use std::io::Write;
 pub fn run_matrix<W: std::io::Write>(w: W, tests: Tests) -> Result<()> {
     let mut writer = TabWriter::new(w).padding(8);
 
-    let tk = crate::tokenizer::get_tokenizers();
+    let tk = crate::parser::get_parsers();
 
     let ts: Vec<String> = tk.iter().map(|t| t.name()).collect();
 

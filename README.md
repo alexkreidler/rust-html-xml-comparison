@@ -41,16 +41,17 @@ In the source of the project, we implemented tests and benchmarks of each of the
 
 ## Current Results
 
-As of 8/10/2020, these are the results for the "low-level" XML parsers:
+As of 8/10/2020, these are the results for the "low-level" XML parsers and the two HTML parsers:
 
 ```
-Test Name          xml-rs           xml-parser        quick-xml
-basic              SUCCEEDED        SUCCEEDED         SUCCEEDED
-basic2             SUCCEEDED        FAILED            SUCCEEDED
-invalid            FAILED           FAILED            FAILED
-invalid2           FAILED           SUCCEEDED         SUCCEEDED
-invalid3           FAILED           SUCCEEDED         FAILED
-self_closed        SUCCEEDED        SUCCEEDED         SUCCEEDED
+Test Name          xml-rs           xml-parser        quick-xml        html5ever        html-parser
+basic              SUCCEEDED        SUCCEEDED         SUCCEEDED        SUCCEEDED        SUCCEEDED
+basic2             SUCCEEDED        FAILED            SUCCEEDED        SUCCEEDED        FAILED
+invalid            FAILED           FAILED            FAILED           SUCCEEDED        FAILED
+invalid2           FAILED           SUCCEEDED         SUCCEEDED        SUCCEEDED        FAILED
+invalid3           FAILED           SUCCEEDED         FAILED           SUCCEEDED        FAILED
+self_closed        SUCCEEDED        SUCCEEDED         SUCCEEDED        SUCCEEDED        SUCCEEDED
+
 ```
 
 ## Design choices
