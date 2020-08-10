@@ -18,7 +18,8 @@ pub const basic2: &'static str = r##"
 pub const invalid: &'static str = r#"
 <outer>
     <invalid>
-    <nest>
+    <nest attr="hi">
+    <br />
     </invalid>
     </nest order="example">
 </outer>
@@ -43,3 +44,16 @@ pub const self_closed: &'static str = r#"
     <img src="google.com" />
 </page>
 "#;
+
+pub const html: &'static str = r#"
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Html parser</title>
+    </head>
+    <body>
+        <h1 id="a" class="b c">Hello world</h1>
+        </h1> <!-- comments & dangling elements are ignored -->
+    </body>
+</html>"#;

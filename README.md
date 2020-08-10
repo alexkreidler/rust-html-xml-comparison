@@ -4,7 +4,7 @@ I love Rust's features and performance, and it has a great ecosystem of awesome 
 
 There are a ton of XML parsers and fewer HTML ones. This is my attempt at comparing as many of them as possible.
 
-## XML libs
+## XML libraries
 
 - [xml-rs](https://github.com/netvl/xml-rs)
 - [xmlparser](https://github.com/RazrFalcon/xmlparser)
@@ -12,6 +12,7 @@ There are a ton of XML parsers and fewer HTML ones. This is my attempt at compar
 - [xmltree](https://github.com/eminence/xmltree-rs)
 - [roxmltree](https://github.com/RazrFalcon/roxmltree)
 - [minidom](https://docs.rs/minidom/0.12.0/minidom/) (Source [here](https://gitlab.com/xmpp-rs/xmpp-rs))
+- [xml5ever](https://github.com/servo/html5ever/tree/master/xml5ever)
 
 There are a few relationships between this libs.
 
@@ -26,6 +27,11 @@ Both `quick-xml` and `xml-rs` can take input from `BufRead` and `Read`, respecti
 `xmltree` uses `xml-rs`. `roxmltree` uses `xmlparser`. `minidom` uses `quick-xml`.
 
 I'll refer you to a performance comparison from the `roxmltree` author here: https://github.com/RazrFalcon/roxmltree#performance
+
+### HTML libraries
+
+- [html5ever](https://github.com/servo/html5ever)
+- [html-parser](https://github.com/mathiversen/html-parser)
 
 ## About the Comparison
 
